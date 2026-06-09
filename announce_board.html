@@ -21,13 +21,19 @@
     }
 
     /* ── Base ── */
-    html { scroll-behavior: smooth; }
+    html {
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic', sans-serif;
       background: var(--bg);
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
       line-height: 1.7;
+      height: 100%;
     }
 
     /* ── Utility ── */
@@ -56,10 +62,7 @@
     /* ══════════════════════════════
        HERO
     ══════════════════════════════ */
-    #hero {
-      padding: 100px 0 88px;
-      text-align: center;
-    }
+    #hero { text-align: center; }
     #hero .eyebrow {
       font-size: 13px;
       font-weight: 600;
@@ -99,14 +102,24 @@
     /* ══════════════════════════════
        SECTION COMMON
     ══════════════════════════════ */
-    section { padding: 88px 0; border-top: 1px solid var(--border); }
+    section, footer {
+      height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-top: none;
+      overflow: hidden;
+    }
+    section .w, footer .w { width: var(--w); }
 
     section h2 {
-      font-size: clamp(26px, 4vw, 38px);
+      font-size: clamp(22px, 3.5vw, 34px);
       font-weight: 800;
       letter-spacing: -.02em;
       line-height: 1.25;
-      margin-bottom: 48px;
+      margin-bottom: 32px;
     }
 
     /* ══════════════════════════════
@@ -117,10 +130,10 @@
     .step-card {
       background: var(--card);
       border-radius: var(--radius);
-      padding: 28px 32px;
+      padding: 20px 28px;
       display: flex;
       align-items: flex-start;
-      gap: 24px;
+      gap: 20px;
     }
     .step-num {
       width: 44px;
@@ -151,8 +164,8 @@
     /* ══════════════════════════════
        GUIDE CARDS
     ══════════════════════════════ */
-    #guide h2 { margin-bottom: 12px; }
-    #guide .guide-sub { font-size: 17px; color: var(--sub); margin-bottom: 40px; }
+    #guide h2 { margin-bottom: 8px; }
+    #guide .guide-sub { font-size: 16px; color: var(--sub); margin-bottom: 20px; }
 
     .guide-grid {
       display: grid;
@@ -162,7 +175,7 @@
     .guide-card {
       background: var(--card);
       border-radius: var(--radius);
-      padding: 32px 28px;
+      padding: 24px 22px;
       border: 1.5px solid transparent;
       transition: border-color .2s, background .2s;
       position: relative;
@@ -241,7 +254,6 @@
     ══════════════════════════════ */
     footer {
       background: var(--grad);
-      padding: 56px 0;
       text-align: center;
     }
     footer p {
@@ -254,17 +266,16 @@
        RESPONSIVE
     ══════════════════════════════ */
     @media (max-width: 680px) {
-      #hero { padding: 72px 0 64px; }
-      section { padding: 64px 0; }
       .guide-grid { grid-template-columns: 1fr; }
-      #bgm .inner { grid-template-columns: 1fr; gap: 28px; }
+      #bgm .inner { grid-template-columns: 1fr; gap: 20px; }
+      #bgm h2 { font-size: 24px; }
     }
   </style>
 </head>
 <body>
 
 <!-- ══ HERO ══ -->
-<section id="hero" style="border-top:none; padding-top:100px;">
+<section id="hero">
   <div class="w">
     <p class="eyebrow fade">SHIFT AI Community</p>
     <h1 class="fade"><span class="grad-text">なんでも相談室</span></h1>
