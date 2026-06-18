@@ -4,31 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>なんでも相談室</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     /* ── Design Tokens ── */
     :root {
-      --grad: linear-gradient(90deg, #ff4b6e 0%, #ff4f8f 25%, #d83de6 70%, #8b2cff 100%);
-      --ink:    #222222;
-      --sub:    #666666;
+      --grad:   linear-gradient(90deg, #ff5757 0%, #8c52ff 100%);
+      --accent: #a51e6d;
+      --ink:    #333333;
+      --sub:    #707070;
       --bg:     #ffffff;
-      --card:   #F8F9FB;
-      --border: #EAEBEF;
+      --card:   #f6e9f0;
+      --border: #edd2e2;
       --radius: 16px;
-      --w: min(900px, 100% - 48px);
+      --w: min(1100px, 100% - 48px);
     }
 
     /* ── Base ── */
     html {
       height: 100%;
       overflow-y: scroll;
-      scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
     }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic', sans-serif;
+      font-family: 'Avenir Next Arabic', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
@@ -40,7 +43,7 @@
     .w { width: var(--w); margin-inline: auto; }
 
     .label {
-      font-size: 12px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: .14em;
       text-transform: uppercase;
@@ -55,8 +58,39 @@
       background-clip: text;
     }
 
+    /* ── Nav ── */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .site-nav a {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--sub);
+      text-decoration: none;
+      padding: 6px 18px;
+      border-radius: 99px;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .site-nav a:hover {
+      background: var(--card);
+      color: var(--accent);
+    }
+
     /* ── Fade-in ── */
-    .fade { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .fade { opacity: 0; transform: translateY(28px); transition: opacity .65s cubic-bezier(.22,.61,.36,1), transform .65s cubic-bezier(.22,.61,.36,1); }
     .fade.in { opacity: 1; transform: none; }
 
     /* ══════════════════════════════
@@ -64,21 +98,33 @@
     ══════════════════════════════ */
     #hero { text-align: center; }
     #hero .eyebrow {
-      font-size: 13px;
+      font-size: 18px;
       font-weight: 600;
       letter-spacing: .12em;
       color: var(--sub);
       margin-bottom: 20px;
     }
     #hero h1 {
-      font-size: clamp(52px, 9vw, 88px);
+      font-size: clamp(44px, 7vw, 72px);
+      font-weight: 500;
+      letter-spacing: -.02em;
+      line-height: 1;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    #hero h1 .sub-line {
+      color: #5c5c5c;
+    }
+    #hero h1 .brand {
+      font-size: clamp(68px, 12vw, 120px);
       font-weight: 800;
       letter-spacing: -.03em;
-      line-height: 1.05;
-      margin-bottom: 24px;
     }
     #hero .sub {
-      font-size: clamp(19px, 2.5vw, 24px);
+      font-size: clamp(24px, 3vw, 32px);
       color: var(--sub);
       line-height: 1.55;
       margin-bottom: 44px;
@@ -90,7 +136,7 @@
       gap: 10px;
     }
     .badge {
-      font-size: 15px;
+      font-size: 20px;
       font-weight: 700;
       color: #ffffff;
       background: var(--grad);
@@ -115,8 +161,8 @@
     section .w, footer .w { width: var(--w); }
 
     section h2 {
-      font-size: clamp(22px, 3.5vw, 34px);
-      font-weight: 800;
+      font-size: clamp(30px, 4.5vw, 48px);
+      font-weight: 700;
       letter-spacing: -.02em;
       line-height: 1.25;
       margin-bottom: 32px;
@@ -125,6 +171,7 @@
     /* ══════════════════════════════
        STEPS
     ══════════════════════════════ */
+    #steps { height: auto; min-height: 100vh; padding: 80px 0; overflow: visible; }
     .steps { display: flex; flex-direction: column; gap: 12px; }
 
     .step-card {
@@ -134,15 +181,20 @@
       display: flex;
       align-items: flex-start;
       gap: 20px;
+      transition: transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .25s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(165,30,109,.10);
     }
     .step-num {
-      width: 44px;
-      height: 44px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      background: var(--grad);
+      background: var(--accent);
       color: #fff;
-      font-size: 18px;
-      font-weight: 800;
+      font-size: 22px;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -150,14 +202,28 @@
       margin-top: 2px;
     }
     .step-body { flex: 1; }
+    .step-img {
+      flex-shrink: 0;
+      width: 320px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      align-self: center;
+    }
+    .step-img img { width: 100%; display: block; }
+
+    @media (max-width: 680px) {
+      .step-img { width: 100%; }
+      .step-card { flex-wrap: wrap; }
+    }
     .step-title {
-      font-size: 20px;
+      font-size: 26px;
       font-weight: 700;
       line-height: 1.3;
       margin-bottom: 4px;
     }
     .step-note {
-      font-size: 14px;
+      font-size: 18px;
       color: var(--sub);
     }
 
@@ -165,7 +231,7 @@
        GUIDE CARDS
     ══════════════════════════════ */
     #guide h2 { margin-bottom: 8px; }
-    #guide .guide-sub { font-size: 16px; color: var(--sub); margin-bottom: 20px; }
+    #guide .guide-sub { font-size: 20px; color: var(--sub); margin-bottom: 20px; }
 
     .guide-grid {
       display: grid;
@@ -177,23 +243,25 @@
       border-radius: var(--radius);
       padding: 24px 22px;
       border: 1.5px solid transparent;
-      transition: border-color .2s, background .2s;
+      transition: transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .25s ease, border-color .2s, background .2s;
       position: relative;
     }
     .guide-card:hover {
       background: #fff;
       border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(165,30,109,.10);
     }
     .guide-cat {
-      font-size: 13px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--sub);
       letter-spacing: .06em;
       margin-bottom: 10px;
     }
     .guide-dest {
-      font-size: 22px;
-      font-weight: 800;
+      font-size: 28px;
+      font-weight: 700;
       letter-spacing: -.01em;
       line-height: 1.3;
       margin-bottom: 16px;
@@ -205,7 +273,7 @@
       gap: 4px;
     }
     .guide-examples li {
-      font-size: 14px;
+      font-size: 18px;
       color: var(--sub);
       padding-left: 14px;
       position: relative;
@@ -222,14 +290,56 @@
     /* ══════════════════════════════
        BGM
     ══════════════════════════════ */
-    #bgm .inner {
+    #bgm h2 { margin-bottom: 16px; }
+    .bgm-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
+      grid-template-rows: auto auto;
+      gap: 12px 24px;
     }
-    #bgm h2 { margin-bottom: 16px; }
-    .bgm-desc { font-size: 18px; color: var(--sub); line-height: 1.8; }
+    .bgm-layout .bgm-img {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      align-self: stretch;
+    }
+    .bgm-layout .bgm-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .bgm-desc { font-size: 22px; color: var(--sub); line-height: 1.8; }
+    .bgm-lead {
+      font-size: 20px;
+      color: var(--sub);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .bgm-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .bgm-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+    .bgm-card-label {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .bgm-card-body {
+      font-size: 20px;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+    .bgm-card-body em {
+      font-style: normal;
+      font-weight: 700;
+      color: var(--ink);
+    }
 
     .bgm-img {
       background: var(--card);
@@ -253,13 +363,53 @@
        FOOTER
     ══════════════════════════════ */
     footer {
-      background: var(--grad);
+      background: #f6e9f0;
       text-align: center;
+      height: auto;
+      min-height: 100vh;
+      padding: 80px 0;
+      overflow: visible;
     }
-    footer p {
-      font-size: clamp(28px, 5vw, 48px);
-      font-weight: 800;
-      color: #ffffff;
+    footer .label { color: var(--sub); }
+    footer h2 {
+      color: var(--ink);
+      margin-bottom: 32px;
+    }
+    .q-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 56px;
+      text-align: left;
+    }
+    .q-item {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .q-mark {
+      font-size: 22px;
+      font-weight: 700;
+      color: #c06299;
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+    .q-text {
+      font-size: 20px;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+    .footer-cta {
+      font-size: clamp(30px, 5vw, 52px);
+      font-weight: 700;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       letter-spacing: -.01em;
     }
 
@@ -275,12 +425,20 @@
 </head>
 <body>
 
+<nav class="site-nav">
+  <a href="#hero">トップ</a>
+  <a href="#steps">ご利用の流れ</a>
+  <a href="#guide">相談窓口ガイド</a>
+  <a href="#bgm">BGM音量調整</a>
+  <a href="#footer">質問例</a>
+</nav>
+
 <!-- ══ HERO ══ -->
 <section id="hero">
   <div class="w">
     <p class="eyebrow fade">SHIFT AI Community</p>
-    <h1 class="fade"><span class="grad-text">なんでも相談室</span></h1>
-    <p class="sub fade">疑問やつまずきを<br>一緒に整理します</p>
+    <h1 class="fade"><span class="sub-line">ようこそ！ここは、</span><span class="brand grad-text">なんでも相談室</span><span class="sub-line">です</span></h1>
+    <p class="sub fade">疑問やつまずきを、一緒に整理します</p>
     <div class="badges fade">
       <span class="badge">毎日開催</span>
       <span class="badge">予約不要</span>
@@ -300,6 +458,7 @@
         <div class="step-num">1</div>
         <div class="step-body">
           <p class="step-title">入室する</p>
+          <p class="step-note">このページをご覧いただいているということは、すでに入室できています！</p>
         </div>
       </div>
 
@@ -309,12 +468,21 @@
           <p class="step-title">事前アンケートに回答する</p>
           <p class="step-note">2回目以降は回答不要です</p>
         </div>
+        <div class="step-img">
+          <img src="images/survey.png" alt="事前アンケート画面">
+        </div>
       </div>
 
       <div class="step-card fade">
         <div class="step-num">3</div>
         <div class="step-body">
           <p class="step-title">チャットまたは音声で相談する</p>
+          <p class="step-note">テンプレートを使うか、直接チャットに書いてもOKです</p>
+          <p class="step-note">質問はお好きなタイミングでどうぞ。</p>
+          <p class="step-note">必ず質問する必要はなく、順番もありません。</p>
+        </div>
+        <div class="step-img">
+          <img src="images/how_to_ask.png" alt="質問の仕方">
         </div>
       </div>
 
@@ -322,6 +490,7 @@
         <div class="step-num">4</div>
         <div class="step-body">
           <p class="step-title">スタッフが順番に音声で回答します</p>
+          <p class="step-note">いただいた質問から順番に音声でお答えします</p>
         </div>
       </div>
 
@@ -358,7 +527,7 @@
 
       <div class="guide-card fade">
         <p class="guide-cat">サイト不具合・ご要望</p>
-        <p class="guide-dest grad-text">フィードバック窓口</p>
+        <p class="guide-dest grad-text">ご意見箱</p>
         <ul class="guide-examples">
           <li>サイト不具合の報告</li>
           <li>機能改善のご要望</li>
@@ -381,23 +550,47 @@
 <!-- ══ BGM ══ -->
 <section id="bgm">
   <div class="w">
-    <div class="inner">
-      <div class="fade">
-        <p class="label">Volume</p>
-        <h2>BGMが<br>大きいとき</h2>
-        <p class="bgm-desc">Jockie Musicの「 ··· 」から<br>音量を調整できます</p>
+    <div class="fade">
+      <p class="label">Volume</p>
+      <h2>BGMが大きいとき</h2>
+      <p class="bgm-lead">BGMが大きいと感じたら、<br>音楽ボット「Jockie Music」の音量を下げられます。</p>
+    </div>
+    <div class="bgm-layout fade">
+      <div class="bgm-card">
+        <p class="bgm-card-label">💻 PCの方</p>
+        <p class="bgm-card-body">Jockie Music のサムネイルにある<em>「 ··· 」を押して</em>、音量を調整してください</p>
       </div>
-      <div class="bgm-img fade">
+      <div class="bgm-img">
         <img src="images/jockie_music.png" alt="Jockie Music 音量調整">
+      </div>
+      <div class="bgm-card">
+        <p class="bgm-card-label">📱 スマホの方</p>
+        <p class="bgm-card-body">Jockie Music の<em>サムネイル（小さい画像）をタップ</em>すると、音量を調整できます</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══ FOOTER ══ -->
-<footer>
+<footer id="footer">
   <div class="w">
-    <p class="fade">お気軽にご相談ください</p>
+    <p class="label fade">Question Examples</p>
+    <h2 class="fade">こんなご相談もどうぞ</h2>
+    <div class="q-list">
+      <div class="q-item fade">
+        <span class="q-mark">Q</span>
+        <p class="q-text">Webライターコースの学習を一通り終えて、案件応募に励んでいるが、なかなか案件獲得できずに悩んでいる</p>
+      </div>
+      <div class="q-item fade">
+        <span class="q-mark">Q</span>
+        <p class="q-text">XX月XX日開催の「XXXXXXX」というウェビナーアーカイブが見つからない</p>
+      </div>
+      <div class="q-item fade">
+        <span class="q-mark">Q</span>
+        <p class="q-text">画像生成の学習を行っています。おすすめのゼミやウェビナーがあれば教えて欲しいです。</p>
+      </div>
+    </div>
+    <p class="footer-cta fade">お気軽にご相談ください</p>
   </div>
 </footer>
 
