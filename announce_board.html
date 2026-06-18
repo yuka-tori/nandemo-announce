@@ -67,6 +67,7 @@
       z-index: 100;
       display: flex;
       justify-content: center;
+      align-items: center;
       gap: 8px;
       padding: 12px 24px;
       background: rgba(255,255,255,.85);
@@ -88,6 +89,44 @@
       background: var(--card);
       color: var(--accent);
     }
+
+    /* ── Auto-play Progress Bar ── */
+    .nav-progress {
+      position: fixed;
+      top: 49px;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--grad);
+      z-index: 101;
+      transition: width linear;
+      opacity: 0;
+    }
+    .nav-progress.active { opacity: 1; }
+
+    /* ── Auto-play Button ── */
+    .autoplay-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px 4px 8px;
+      border-radius: 99px;
+      border: 1px solid rgba(165,30,109,.4);
+      background: transparent;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .2s, color .2s, border-color .2s;
+      letter-spacing: .02em;
+      white-space: nowrap;
+      opacity: .65;
+      margin-left: auto;
+    }
+    .autoplay-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); opacity: 1; }
+    .autoplay-btn.playing { background: var(--accent); color: #fff; border-color: var(--accent); opacity: 1; }
+    .autoplay-btn svg { width: 10px; height: 10px; flex-shrink: 0; }
 
     /* ── Fade-in ── */
     .fade { opacity: 0; transform: translateY(28px); transition: opacity .65s cubic-bezier(.22,.61,.36,1), transform .65s cubic-bezier(.22,.61,.36,1); }
@@ -171,52 +210,99 @@
     /* ══════════════════════════════
        STEPS
     ══════════════════════════════ */
-    #steps { height: 100vh; padding: 40px 0; overflow: hidden; }
-    #steps h2 { margin-bottom: 16px; }
-    #steps .label { margin-bottom: 8px; }
-    .steps { display: flex; flex-direction: column; gap: 8px; }
+    #steps { height: 100vh; padding: 40px 0; overflow: hidden; display: flex; align-items: center; }
+    #steps .w { display: flex; flex-direction: column; height: calc(100vh - 80px); }
+    #steps h2 { margin-bottom: 12px; flex-shrink: 0; }
+    #steps .label { margin-bottom: 6px; flex-shrink: 0; }
+    .steps {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      gap: 10px;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .step-card.full { grid-column: span 2; flex-direction: row; align-items: center; gap: 16px; }
+    .step-card.full .step-body { flex: 1; }
+    .step-card:not(.full) { min-height: 0; overflow: hidden; }
 
+    /* ── Step cards: 共通 ── */
     .step-card {
-      background: var(--card);
       border-radius: var(--radius);
-      padding: 12px 20px;
+      padding: 20px 24px;
       display: flex;
+      flex-direction: column;
       align-items: flex-start;
-      gap: 16px;
+      justify-content: center;
+      gap: 10px;
       transition: transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .25s ease;
     }
-    .step-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(165,30,109,.10);
+
+    /* ── Step 1・4：シンプル脇役 ── */
+    .step-card.full {
+      background: transparent;
+      border: 1.5px solid var(--border);
     }
+
+    /* ── Step 2・3：主役 ── */
+    .step-card:not(.full) {
+      background: #ffffff;
+      box-shadow: 0 8px 32px rgba(165,30,109,.12);
+      position: relative;
+      padding-top: 24px;
+      justify-content: flex-start;
+    }
+    .step-card:not(.full)::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--grad);
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .step-card:not(.full):hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(165,30,109,.16);
+    }
+
+    /* ── Step番号 ── */
     .step-num {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: var(--accent);
       color: #fff;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      margin-top: 2px;
+      margin-top: 0;
     }
-    .step-body { flex: 1; }
+    .step-card:not(.full) .step-num {
+      width: 48px;
+      height: 48px;
+      font-size: 20px;
+      background: var(--grad);
+    }
+    .step-body { flex: 1; width: 100%; }
     .step-img {
-      flex-shrink: 0;
-      width: 200px;
+      width: 100%;
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--border);
-      align-self: center;
+      margin-top: 4px;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: flex-start;
     }
-    .step-img img { width: 100%; display: block; }
+    .step-img img { width: 100%; height: 100%; object-fit: contain; object-position: top; display: block; }
 
     @media (max-width: 680px) {
-      .step-img { width: 100%; }
-      .step-card { flex-wrap: wrap; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
     }
     .step-title {
       font-size: 22px;
@@ -226,7 +312,8 @@
     }
     .step-note {
       font-size: 15px;
-      line-height: 1.5;
+      line-height: 1.6;
+      color: #474747;
       color: var(--sub);
     }
 
@@ -428,12 +515,17 @@
 </head>
 <body>
 
+<div class="nav-progress" id="navProgress"></div>
 <nav class="site-nav">
   <a href="#hero">トップ</a>
   <a href="#steps">ご利用の流れ</a>
   <a href="#guide">相談窓口ガイド</a>
   <a href="#bgm">BGM音量調整</a>
   <a href="#footer">質問例</a>
+  <button class="autoplay-btn" id="autoplayBtn" onclick="toggleAutoplay()">
+    <svg id="autoplayIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <span id="autoplayLabel">自動再生</span>
+  </button>
 </nav>
 
 <!-- ══ HERO ══ -->
@@ -457,7 +549,7 @@
     <h2 class="fade">ご利用の流れ</h2>
     <div class="steps">
 
-      <div class="step-card fade">
+      <div class="step-card full fade">
         <div class="step-num">1</div>
         <div class="step-body">
           <p class="step-title">入室する</p>
@@ -482,6 +574,7 @@
         <div class="step-num">3</div>
         <div class="step-body">
           <p class="step-title">チャットまたは音声で相談する</p>
+          <p class="step-note" style="color:#e6033d; font-weight:700;">音声会話を希望の場合は、その旨をチャット欄にコメントください</p>
           <p class="step-note">アンケート回答後に質問テンプレートをお送りします。</p>
           <p class="step-note">テンプレートを使うか、直接チャットに書いてもOKです。</p>
           <p class="step-note">ご質問はお好きなタイミングでどうぞ。</p>
@@ -492,7 +585,7 @@
         </div>
       </div>
 
-      <div class="step-card fade">
+      <div class="step-card full fade">
         <div class="step-num">4</div>
         <div class="step-body">
           <p class="step-title">スタッフが順番に音声で回答します</p>
@@ -613,6 +706,86 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+  /* ── Auto-play ── */
+  const SECTIONS = ['#hero','#steps','#guide','#bgm','#footer'];
+  const DURATION = 10000;
+  let currentIndex = 0;
+  let timer = null;
+  let progressTimer = null;
+  let isPlaying = false;
+
+  const btn = document.getElementById('autoplayBtn');
+  const label = document.getElementById('autoplayLabel');
+  const icon = document.getElementById('autoplayIcon');
+  const progress = document.getElementById('navProgress');
+
+  const playIcon = '<path d="M8 5v14l11-7z"/>';
+  const stopIcon = '<path d="M6 6h12v12H6z"/>';
+
+  function scrollToSection(index) {
+    const el = document.querySelector(SECTIONS[index]);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function startProgress() {
+    progress.style.transition = 'none';
+    progress.style.width = '0%';
+    progress.classList.add('active');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        progress.style.transition = `width ${DURATION}ms linear`;
+        progress.style.width = '100%';
+      });
+    });
+  }
+
+  function stopProgress() {
+    progress.style.transition = 'none';
+    progress.style.width = '0%';
+    progress.classList.remove('active');
+  }
+
+  function next() {
+    currentIndex = (currentIndex + 1) % SECTIONS.length;
+    scrollToSection(currentIndex);
+    startProgress();
+    timer = setTimeout(next, DURATION);
+  }
+
+  function toggleAutoplay() {
+    if (isPlaying) {
+      stopAutoplay();
+    } else {
+      startAutoplay();
+    }
+  }
+
+  function startAutoplay() {
+    isPlaying = true;
+    btn.classList.add('playing');
+    icon.innerHTML = stopIcon;
+    label.textContent = '停止';
+    scrollToSection(currentIndex);
+    startProgress();
+    timer = setTimeout(next, DURATION);
+  }
+
+  function stopAutoplay() {
+    isPlaying = false;
+    clearTimeout(timer);
+    stopProgress();
+    btn.classList.remove('playing');
+    icon.innerHTML = playIcon;
+    label.textContent = '自動再生';
+  }
+
+  // ナビリンクをクリックしたら停止
+  document.querySelectorAll('.site-nav a').forEach(a => {
+    a.addEventListener('click', () => {
+      if (isPlaying) stopAutoplay();
+    });
+  });
 </script>
 
 </body>
