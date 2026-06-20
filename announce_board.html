@@ -137,36 +137,36 @@
     ══════════════════════════════ */
     #hero { text-align: center; }
     #hero .eyebrow {
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 600;
       letter-spacing: .12em;
       color: var(--sub);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
     #hero h1 {
-      font-size: clamp(44px, 7vw, 72px);
+      font-size: clamp(32px, 5vw, 52px);
       font-weight: 500;
       letter-spacing: -.02em;
       line-height: 1;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 30px;
+      gap: 20px;
     }
     #hero h1 .sub-line {
       color: #5c5c5c;
     }
     #hero h1 .brand {
-      font-size: clamp(68px, 12vw, 120px);
+      font-size: clamp(52px, 9vw, 88px);
       font-weight: 800;
       letter-spacing: -.03em;
     }
     #hero .sub {
-      font-size: clamp(24px, 3vw, 32px);
+      font-size: clamp(18px, 2.2vw, 24px);
       color: var(--sub);
       line-height: 1.55;
-      margin-bottom: 44px;
+      margin-bottom: 32px;
     }
     .badges {
       display: flex;
@@ -175,11 +175,11 @@
       gap: 10px;
     }
     .badge {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 700;
       color: #ffffff;
       background: var(--grad);
-      padding: 8px 22px;
+      padding: 7px 20px;
       border-radius: 99px;
       letter-spacing: .02em;
     }
@@ -190,6 +190,7 @@
     section, footer {
       height: 100vh;
       scroll-snap-align: start;
+      scroll-margin-top: 52px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -210,143 +211,252 @@
     /* ══════════════════════════════
        STEPS
     ══════════════════════════════ */
-    #steps { height: 100vh; padding: 40px 0; overflow: hidden; display: flex; align-items: center; background: #ffffff; }
-    #steps .w { display: flex; flex-direction: column; height: calc(100vh - 80px); }
-    #steps h2 { margin-bottom: 12px; flex-shrink: 0; }
-    #steps .label { margin-bottom: 6px; flex-shrink: 0; }
-    .steps {
-      flex: 1;
+    /* ── Step sections（各ステップ独立1画面） ── */
+    .step-section {
+      height: 100vh;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+    }
+    .step-section .w {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto 1fr auto;
-      gap: 10px;
-      min-height: 0;
-      overflow: hidden;
-      background: #ffffff;
+      gap: 64px;
+      align-items: center;
+      height: calc(100vh - 80px);
     }
-    .step-card.full { grid-column: span 2; flex-direction: row; align-items: center; justify-content: center; gap: 16px; }
-    .step-card.full .step-body { flex: unset; width: auto; }
-    .step-card:not(.full) { min-height: 0; overflow: hidden; }
-
-    /* ── Step cards: 共通 ── */
-    .step-card {
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      background: #ffffff;
+    .step-section.no-img .w {
+      grid-template-columns: 1fr;
+      max-width: 560px;
+    }
+    .step-left {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
       justify-content: center;
-      gap: 10px;
-      transition: transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .25s ease;
+      gap: 20px;
     }
-
-    /* ── Step 1・4：薄ピンク背景・左寄せ ── */
-    .step-card.full {
-      background: #faf4f8;
-      border: none;
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
-
-    /* ── Step 2・3：主役（枠・シャドウ、背景は白） ── */
-    .step-card:not(.full) {
-      background: #ffffff;
-      box-shadow: 0 4px 16px rgba(0,0,0,.08);
-      position: relative;
-      padding-top: 24px;
-      justify-content: flex-start;
-    }
-    .step-card:not(.full)::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: var(--grad);
-      border-radius: var(--radius) var(--radius) 0 0;
-    }
-    .step-card:not(.full):hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,.12);
-    }
-
-    /* ── Step番号 ── */
     .step-num {
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1.3;
-      display: inline;
-      margin-right: 6px;
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1;
       background: var(--grad);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-    }
-    .full-body {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-template-rows: auto auto;
-      column-gap: 8px;
-      align-items: baseline;
-      width: 100%;
-      padding: 0 24px;
-    }
-    .full-body .step-num {
-      grid-column: 1;
-      grid-row: 1;
-    }
-    .full-body .step-title {
-      grid-column: 2;
-      grid-row: 1;
-    }
-    .full-body .step-note {
-      grid-column: 2;
-      grid-row: 2;
-    }
-    .step-card:not(.full) .step-num {
-      display: block;
-      font-size: 32px;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .step-body { flex: 1; width: 100%; }
-    .step-img {
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      margin-top: 4px;
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      align-items: flex-start;
-    }
-    .step-img img { width: 100%; height: 100%; object-fit: contain; object-position: top; display: block; }
-
-    @media (max-width: 680px) {
-      .steps { grid-template-columns: repeat(2, 1fr); }
     }
     .step-title {
-      font-size: 22px;
+      font-size: 36px;
       font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 4px;
+      line-height: 1.35;
+      color: var(--ink);
     }
     .step-note {
-      font-size: 15px;
-      line-height: 1.6;
-      color: #474747;
+      font-size: 18px;
+      line-height: 1.75;
       color: var(--sub);
+    }
+    .step-note.alert {
+      color: #e6033d;
+      font-weight: 700;
+    }
+    .step-section-heading {
+      font-size: 13px;
+      font-weight: 700;
+      color: #BBBBBB;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .step-section-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .step-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .step-right img {
+      max-height: calc(100vh - 140px);
+      width: 100%;
+      object-fit: contain;
+      object-position: top;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,.08);
+    }
+    .step-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: #BBBBBB;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    /* 画面の見方セクション共通：左細・右広の2カラム */
+    .screen-section .w {
+      grid-template-columns: 1fr 2.5fr !important;
+      gap: 48px;
+    }
+    .screen-section .step-left {
+      gap: 12px;
+    }
+    .screen-section .step-counter {
+      font-size: 12px;
+    }
+    .screen-section .step-section-title { font-size: 18px; }
+    .screen-section .step-title {
+      font-size: 20px;
+      line-height: 1.4;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .screen-section .step-note {
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    /* PC画像：全体表示・上下余白あり */
+    .screen-pc-img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 0;
+      height: 100%;
+    }
+    .screen-pc-img img {
+      width: 100%;
+      max-height: calc(100vh - 120px);
+      object-fit: contain;
+      object-position: center;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,.08);
+    }
+
+    /* スマホ2枚並び */
+    .screen-sp-imgs {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      height: 100%;
+    }
+    .screen-sp-imgs img {
+      flex: 1;
+      max-height: calc(100vh - 140px);
+      width: 0;
+      object-fit: contain;
+      object-position: top;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,.08);
+    }
+
+    /* STEP3 プレースホルダー */
+    .step-img-placeholder {
+      width: 100%;
+      height: calc(100vh - 160px);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #BBBBBB;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.6;
     }
 
     /* ══════════════════════════════
-       GUIDE CARDS
+       GUIDE SECTIONS（各カード独立1画面）
     ══════════════════════════════ */
-    #guide h2 { margin-bottom: 8px; }
-    #guide .guide-sub { font-size: 20px; color: var(--sub); margin-bottom: 20px; }
+    .guide-section {
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+    }
+    .guide-section .w {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      height: calc(100vh - 80px);
+    }
+    .guide-section.no-img .w {
+      grid-template-columns: 1fr;
+      max-width: 600px;
+    }
+    .guide-section-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+    .guide-section-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .guide-section-right img {
+      max-height: calc(100vh - 140px);
+      width: 100%;
+      object-fit: contain;
+      object-position: top;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,.08);
+    }
+    .guide-section-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #BBBBBB;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .guide-section-cat {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--sub);
+      letter-spacing: 0.04em;
+    }
+    .guide-section-dest {
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+    .guide-section-examples {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .guide-section-examples li {
+      font-size: 18px;
+      color: var(--sub);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .guide-section-examples li::before {
+      content: '·';
+      position: absolute;
+      left: 6px;
+      color: var(--sub);
+      font-size: 20px;
+    }
 
+    /* 旧 .guide-grid（後方互換のため残す） */
     .guide-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -422,7 +532,15 @@
     /* ══════════════════════════════
        BGM
     ══════════════════════════════ */
-    #bgm h2 { margin-bottom: 16px; }
+    #bgm h2 {
+      font-size: 36px;
+      font-weight: 900;
+      margin-bottom: 16px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
     .bgm-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -439,9 +557,9 @@
       height: 100%;
       object-fit: cover;
     }
-    .bgm-desc { font-size: 22px; color: var(--sub); line-height: 1.8; }
+    .bgm-desc { font-size: 18px; color: var(--sub); line-height: 1.8; }
     .bgm-lead {
-      font-size: 20px;
+      font-size: 18px;
       color: var(--sub);
       line-height: 1.7;
       margin-bottom: 20px;
@@ -457,13 +575,13 @@
       padding: 20px 24px;
     }
     .bgm-card-label {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--accent);
       margin-bottom: 8px;
     }
     .bgm-card-body {
-      font-size: 20px;
+      font-size: 18px;
       color: var(--ink);
       line-height: 1.7;
     }
@@ -494,55 +612,266 @@
     /* ══════════════════════════════
        FOOTER
     ══════════════════════════════ */
-    footer {
-      background: #f6e9f0;
-      text-align: center;
-      height: auto;
-      min-height: 100vh;
-      padding: 80px 0;
-      overflow: visible;
+    /* ══════════════════════════════
+       質問の仕方セクション共通
+    ══════════════════════════════ */
+    .howto-section {
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
     }
-    footer .label { color: var(--sub); }
-    footer h2 {
-      color: var(--ink);
-      margin-bottom: 32px;
+    .howto-section .w {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 64px;
+      align-items: center;
     }
-    .q-list {
+    .howto-left {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      margin-bottom: 56px;
-      text-align: left;
-    }
-    .q-item {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px 28px;
-      display: flex;
       gap: 16px;
-      align-items: flex-start;
     }
-    .q-mark {
-      font-size: 22px;
+    .howto-label {
+      font-size: 13px;
       font-weight: 700;
-      color: #c06299;
-      flex-shrink: 0;
-      line-height: 1.5;
+      color: #BBBBBB;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
-    .q-text {
-      font-size: 20px;
-      color: var(--ink);
-      line-height: 1.7;
-    }
-    .footer-cta {
-      font-size: clamp(30px, 5vw, 52px);
-      font-weight: 700;
+    .howto-title {
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.3;
       background: var(--grad);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: -.01em;
+    }
+    .howto-desc {
+      font-size: 18px;
+      color: var(--sub);
+      line-height: 1.75;
+    }
+    .howto-closing {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 8px;
+    }
+
+    /* Section 1：オープンな場 ビジュアル */
+    .open-diagram-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .open-diagram {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 380px;
+    }
+    .howto-closing-section .w {
+      display: block;
+      text-align: center;
+    }
+    .closing-msg {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-top: 16px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .open-row {
+      border-radius: 14px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .open-row.chat-row { background: #F6E9F0; border: 1.5px solid #DBA5C5; }
+    .open-row.voice-row { background: #E6F4F2; border: 1.5px solid #9AD5C9; }
+    .open-sender {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .open-sender-svg {
+      width: 30px; height: 30px;
+    }
+    .chat-row .open-sender-svg { color: #A51E6D; }
+    .voice-row .open-sender-svg { color: #039578; }
+    .open-sender-label {
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .chat-row .open-sender-label { color: #A51E6D; }
+    .voice-row .open-sender-label { color: #039578; }
+    .open-flow-arrow {
+      flex-shrink: 0;
+      width: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .open-flow-arrow svg { width: 44px; height: 16px; }
+    .open-receivers {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .open-receiver-icons {
+      display: flex;
+      gap: 8px;
+    }
+    .open-receiver-svg {
+      width: 28px; height: 28px;
+    }
+    .chat-row .open-receiver-svg { color: #C07099; }
+    .voice-row .open-receiver-svg { color: #3D9E89; }
+    .open-receiver-label {
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .chat-row .open-receiver-label { color: #A51E6D; }
+    .voice-row .open-receiver-label { color: #039578; }
+    .ng-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff0f0;
+      border: 1.5px solid #ffcccc;
+      border-radius: 99px;
+      padding: 8px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #e6033d;
+    }
+
+    /* Section 2：できること・できないこと */
+    .cando-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .cando-card {
+      border-radius: 14px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cando-card.ok {
+      background: #f0faf5;
+      border: 2px solid #68BFAE;
+    }
+    .cando-card.ng {
+      background: #fff5f5;
+      border: 2px solid #ffaaaa;
+    }
+    .cando-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .cando-badge.ok { color: #039578; }
+    .cando-badge.ng { color: #e6033d; }
+    .cando-badge-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .cando-badge-icon.ok { background: #039578; color: #fff; }
+    .cando-badge-icon.ng { background: #e6033d; color: #fff; }
+    .cando-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .cando-list li {
+      font-size: 17px;
+      color: var(--ink);
+      line-height: 1.5;
+      padding-left: 20px;
+      position: relative;
+    }
+    .cando-card.ok .cando-list li::before {
+      content: '✓';
+      position: absolute; left: 0;
+      color: #039578;
+      font-weight: 700;
+    }
+    .cando-card.ng .cando-list li::before {
+      content: '✕';
+      position: absolute; left: 0;
+      color: #e6033d;
+      font-weight: 700;
+    }
+
+    /* Section 3：具体的に */
+    .example-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .example-card {
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .example-card.bad {
+      background: #fff5f5;
+      border: 1.5px solid #ffaaaa;
+    }
+    .example-card.good {
+      background: #f0faf5;
+      border: 1.5px solid #68BFAE;
+    }
+    .example-tag {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+    }
+    .example-card.bad .example-tag { color: #e6033d; }
+    .example-card.good .example-tag { color: #039578; }
+    .example-text {
+      font-size: 17px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .example-text em {
+      background: linear-gradient(90deg,#ff4b6e22,#8b2cff22);
+      border-radius: 4px;
+      padding: 1px 4px;
+      font-style: normal;
+      font-weight: 700;
+      color: #A51E6D;
+    }
+    .example-arrow {
+      text-align: center;
+      font-size: 24px;
+      color: #C2C2C2;
+      line-height: 1;
     }
 
     /* ══════════════════════════════
@@ -560,10 +889,11 @@
 <div class="nav-progress" id="navProgress"></div>
 <nav class="site-nav">
   <a href="#hero">トップ</a>
+  <a href="#screen-guide">画面の見方</a>
   <a href="#steps">ご利用の流れ</a>
   <a href="#guide">相談窓口ガイド</a>
   <a href="#bgm">BGM音量調整</a>
-  <a href="#footer">質問例</a>
+  <a href="#footer">質問の仕方</a>
   <button class="autoplay-btn" id="autoplayBtn" onclick="toggleAutoplay()">
     <svg id="autoplayIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
     <span id="autoplayLabel">自動再生</span>
@@ -585,122 +915,160 @@
 </section>
 
 <!-- ══ STEPS ══ -->
-<section id="steps">
+<!-- ── 画面の見方：PC ── -->
+<section id="screen-guide" class="step-section screen-section">
   <div class="w">
-    <p class="label fade">How it works</p>
-    <h2 class="fade">ご利用の流れ</h2>
-    <div class="steps">
-
-      <div class="step-card full fade">
-        <div class="step-body full-body">
-          <span class="step-num">1</span>
-          <p class="step-title">入室する</p>
-          <p class="step-note">このページをご覧いただいているということは、すでに入室できています！</p>
-        </div>
-      </div>
-
-      <div class="step-card fade">
-        <div class="step-num">2</div>
-        <div class="step-body">
-          <p class="step-title">事前アンケートに回答する</p>
-          <p class="step-note">あなたのDiscordネームでメンションしたアンケートをチャット欄に送っています。</p>
-          <p class="step-note">何で「なんでも相談室」をお知りになったのかを回答下さい。</p>
-          <p class="step-note">※2回目以降は回答不要です</p>
-        </div>
-        <div class="step-img">
-          <img src="images/survey.png" alt="事前アンケート画面">
-        </div>
-      </div>
-
-      <div class="step-card fade">
-        <div class="step-num">3</div>
-        <div class="step-body">
-          <p class="step-title">チャットまたは音声で相談する</p>
-          <p class="step-note" style="color:#e6033d; font-weight:700;">音声会話を希望の場合は、その旨をチャット欄にコメントください</p>
-          <p class="step-note">アンケート回答後に質問テンプレートをお送りします。</p>
-          <p class="step-note">テンプレートを使うか、直接チャットに書いてもOKです。</p>
-          <p class="step-note">ご質問はお好きなタイミングでどうぞ。</p>
-          <p class="step-note">※必ず質問する必要はなく、順番もありません。</p>
-        </div>
-        <div class="step-img">
-          <img src="images/how_to_ask.png" alt="質問の仕方">
-        </div>
-      </div>
-
-      <div class="step-card full fade">
-        <div class="step-body full-body">
-          <span class="step-num">4</span>
-          <p class="step-title">スタッフが順番に音声で回答します</p>
-          <p class="step-note">いただいた質問から順番に音声でお答えします</p>
-        </div>
-      </div>
-
+    <div class="step-left fade">
+      <p class="step-section-heading">Screen Guide</p>
+      <p class="step-section-title">画面の見方</p>
+      <p class="step-counter">PC</p>
+      <p class="step-title">PCでの<br>画面レイアウト</p>
+      <p class="step-note">左側にチャット欄、右側に音声チャンネルが表示されます。</p>
+    </div>
+    <div class="screen-pc-img fade">
+      <img src="images/screen_guide_pc.png" alt="PCでの画面の見方">
     </div>
   </div>
 </section>
 
-<!-- ══ GUIDE ══ -->
-<section id="guide">
+<!-- ── 画面の見方：スマホ ── -->
+<section id="screen-guide-sp" class="step-section screen-section">
   <div class="w">
-    <p class="label fade">Inquiry Guide</p>
-    <h2 class="fade">相談内容に応じて<br>窓口をご利用ください</h2>
-    <div class="guide-grid">
+    <div class="step-left fade">
+      <p class="step-section-heading">Screen Guide</p>
+      <p class="step-section-title">画面の見方</p>
+      <p class="step-counter">スマホ</p>
+      <p class="step-title">スマホでの<br>画面レイアウト</p>
+      <p class="step-note">左右にスワイプするとチャンネルを切り替えられます。</p>
+    </div>
+    <div class="screen-sp-imgs fade">
+      <img src="images/screen_guide_sp1.png" alt="スマホ画面の見方1">
+      <img src="images/screen_guide_sp2.png" alt="スマホ画面の見方2">
+    </div>
+  </div>
+</section>
 
-      <div class="guide-card fade">
-        <p class="guide-cat">学習に関するご相談</p>
-        <p class="guide-dest grad-text">なんでも相談室</p>
-        <div class="guide-card-bottom">
-          <ul class="guide-examples">
-            <li>学習の進め方</li>
-            <li>講座の選び方</li>
-            <li>AI活用の相談</li>
-          </ul>
-        </div>
-      </div>
+<!-- ── STEP 1 ── -->
+<section id="steps" class="step-section">
+  <div class="w">
+    <div class="step-left fade">
+      <p class="step-section-heading">How it works</p>
+      <p class="step-section-title">ご利用の流れ</p>
+      <p class="step-counter">STEP 1 / 3</p>
+      <p class="step-num">1</p>
+      <p class="step-title">事前アンケートに<br>回答する</p>
+      <p class="step-note">あなたのDiscordネームでメンションしたアンケートをチャット欄に送っています。</p>
+      <p class="step-note">※2回目以降は回答不要です</p>
+    </div>
+    <div class="step-right fade">
+      <img src="images/survey.png" alt="事前アンケート画面">
+    </div>
+  </div>
+</section>
 
-      <div class="guide-card fade">
-        <p class="guide-cat">契約・プラン・事務手続き</p>
-        <p class="guide-dest grad-text">AIメンター（相談・サポート）</p>
-        <div class="guide-card-bottom">
-          <ul class="guide-examples">
-            <li>契約内容の確認</li>
-            <li>プラン変更</li>
-            <li>支払い方法</li>
-          </ul>
-          <div class="guide-card-img">
-            <img src="images/AImentor.png" alt="AIメンターBot">
-          </div>
-        </div>
-      </div>
+<!-- ── STEP 2 ── -->
+<section id="step-2" class="step-section">
+  <div class="w">
+    <div class="step-left fade">
+      <p class="step-counter">STEP 2 / 3</p>
+      <p class="step-num">2</p>
+      <p class="step-title">チャットまたは音声で<br>相談する</p>
+      <p class="step-note alert">音声会話を希望の場合は、その旨をチャット欄にコメントください</p>
+      <p class="step-note">テンプレートを使うか、直接チャットに書いてもOKです。</p>
+    </div>
+    <div class="step-right fade">
+      <img src="images/how_to_ask.png" alt="相談の仕方">
+    </div>
+  </div>
+</section>
 
-      <div class="guide-card fade">
-        <p class="guide-cat">サイト不具合・ご要望</p>
-        <p class="guide-dest grad-text">ご意見箱</p>
-        <div class="guide-card-bottom">
-          <ul class="guide-examples">
-            <li>サイト不具合の報告</li>
-            <li>機能改善のご要望</li>
-          </ul>
-          <div class="guide-card-img">
-            <img src="images/goikenbako.png" alt="ご意見箱">
-          </div>
-        </div>
-      </div>
+<!-- ── STEP 3 ── -->
+<section id="step-3" class="step-section">
+  <div class="w">
+    <div class="step-left fade">
+      <p class="step-counter">STEP 3 / 3</p>
+      <p class="step-num">3</p>
+      <p class="step-title">スタッフが順番に<br>音声で回答します</p>
+      <p class="step-note">いただいた質問から順番に音声でお答えします。</p>
+    </div>
+    <div class="step-right fade">
+      <img src="images/staff_voice_response.png" alt="スタッフが音声で回答している様子">
+    </div>
+  </div>
+</section>
 
-      <div class="guide-card fade">
-        <p class="guide-cat">Discordの使い方</p>
-        <p class="guide-dest grad-text">Discord質問窓口</p>
-        <div class="guide-card-bottom">
-          <ul class="guide-examples">
-            <li>操作方法</li>
-            <li>チャンネル利用方法</li>
-          </ul>
-          <div class="guide-card-img">
-            <img src="images/Dscord_Q.png" alt="Discord質問窓口">
-          </div>
-        </div>
-      </div>
+<!-- ══ GUIDE 1 ══ -->
+<section id="guide" class="guide-section">
+  <div class="w">
+    <div class="guide-section-left fade">
+      <p class="step-section-heading">Inquiry Guide</p>
+      <p class="step-section-title">相談窓口ガイド</p>
+      <p class="guide-section-label">Inquiry Guide — 1 / 4</p>
+      <p class="guide-section-cat">学習に関するご相談</p>
+      <p class="guide-section-dest grad-text">なんでも相談室</p>
+      <ul class="guide-section-examples">
+        <li>学習の進め方</li>
+        <li>講座の選び方</li>
+        <li>AI活用の相談</li>
+      </ul>
+    </div>
+    <div class="guide-section-right fade">
+      <img src="images/nandemosoudanshitsu_image.png" alt="なんでも相談室">
+    </div>
+  </div>
+</section>
 
+<!-- ══ GUIDE 2 ══ -->
+<section id="guide-2" class="guide-section">
+  <div class="w">
+    <div class="guide-section-left fade">
+      <p class="guide-section-label">Inquiry Guide — 2 / 4</p>
+      <p class="guide-section-cat">契約・プラン・事務手続き</p>
+      <p class="guide-section-dest grad-text">AIメンター<br>（相談・サポート）</p>
+      <ul class="guide-section-examples">
+        <li>契約内容の確認</li>
+        <li>プラン変更</li>
+        <li>支払い方法</li>
+      </ul>
+    </div>
+    <div class="guide-section-right fade">
+      <img src="images/AImentor.png" alt="AIメンターBot">
+    </div>
+  </div>
+</section>
+
+<!-- ══ GUIDE 3 ══ -->
+<section id="guide-3" class="guide-section">
+  <div class="w">
+    <div class="guide-section-left fade">
+      <p class="guide-section-label">Inquiry Guide — 3 / 4</p>
+      <p class="guide-section-cat">サイト不具合・ご要望</p>
+      <p class="guide-section-dest grad-text">ご意見箱</p>
+      <ul class="guide-section-examples">
+        <li>サイト不具合の報告</li>
+        <li>機能改善のご要望</li>
+      </ul>
+    </div>
+    <div class="guide-section-right fade">
+      <img src="images/goikenbako.png" alt="ご意見箱">
+    </div>
+  </div>
+</section>
+
+<!-- ══ GUIDE 4 ══ -->
+<section id="guide-4" class="guide-section">
+  <div class="w">
+    <div class="guide-section-left fade">
+      <p class="guide-section-label">Inquiry Guide — 4 / 4</p>
+      <p class="guide-section-cat">Discordの使い方</p>
+      <p class="guide-section-dest grad-text">Discord質問窓口</p>
+      <ul class="guide-section-examples">
+        <li>操作方法</li>
+        <li>チャンネル利用方法</li>
+      </ul>
+    </div>
+    <div class="guide-section-right fade">
+      <img src="images/Dscord_Q.png" alt="Discord質問窓口">
     </div>
   </div>
 </section>
@@ -730,27 +1098,141 @@
 </section>
 
 <!-- ══ FOOTER ══ -->
-<footer id="footer">
+<!-- ══ 質問の仕方 1/3 ══ -->
+<section id="footer" class="howto-section">
   <div class="w">
-    <p class="label fade">Question Examples</p>
-    <h2 class="fade">こんなご相談もどうぞ</h2>
-    <div class="q-list">
-      <div class="q-item fade">
-        <span class="q-mark">Q</span>
-        <p class="q-text">Webライターコースの学習を一通り終えて、案件応募に励んでいるが、なかなか案件獲得できずに悩んでいる</p>
+    <div class="howto-left fade">
+      <p class="step-section-heading">How to ask</p>
+      <p class="step-section-title">質問の仕方</p>
+      <p class="howto-label">How to ask — 1 / 3</p>
+      <p class="howto-title">ここはオープンな場です</p>
+      <p class="howto-desc">チャット・音声はその場にいる全員に見えます。<br>個人情報の記載はお控えください。</p>
+      <div class="ng-pill">✕ &nbsp;氏名・電話番号・メールアドレス など</div>
+    </div>
+    <div class="open-diagram-col">
+    <div class="open-diagram fade">
+      <!-- チャット行 -->
+      <div class="open-row chat-row">
+        <div class="open-sender">
+          <svg class="open-sender-svg" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+          </svg>
+          <div class="open-sender-label">チャットを送信</div>
+        </div>
+        <div class="open-flow-arrow">
+          <svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg">
+            <line x1="1" y1="8" x2="30" y2="8" stroke="#A51E6D" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="28,3 43,8 28,13" fill="#A51E6D"/>
+          </svg>
+        </div>
+        <div class="open-receivers">
+          <div class="open-receiver-icons">
+            <svg class="open-receiver-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+            <svg class="open-receiver-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+            <svg class="open-receiver-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+            <svg class="open-receiver-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+            <svg class="open-receiver-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <div class="open-receiver-label">参加者全員が読めます</div>
+        </div>
       </div>
-      <div class="q-item fade">
-        <span class="q-mark">Q</span>
-        <p class="q-text">XX月XX日開催の「XXXXXXX」というウェビナーアーカイブが見つからない</p>
-      </div>
-      <div class="q-item fade">
-        <span class="q-mark">Q</span>
-        <p class="q-text">画像生成の学習を行っています。おすすめのゼミやウェビナーがあれば教えて欲しいです。</p>
+      <!-- 音声行 -->
+      <div class="open-row voice-row">
+        <div class="open-sender">
+          <svg class="open-sender-svg" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+          </svg>
+          <div class="open-sender-label">音声で話す</div>
+        </div>
+        <div class="open-flow-arrow">
+          <svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg">
+            <line x1="1" y1="8" x2="30" y2="8" stroke="#039578" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="28,3 43,8 28,13" fill="#039578"/>
+          </svg>
+        </div>
+        <div class="open-receivers">
+          <div class="open-receiver-icons">
+            <svg class="open-receiver-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+            <svg class="open-receiver-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+            <svg class="open-receiver-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+            <svg class="open-receiver-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+            <svg class="open-receiver-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <div class="open-receiver-label">参加者全員に聞こえます</div>
+        </div>
       </div>
     </div>
-    <p class="footer-cta fade">お気軽にご相談ください</p>
+    </div>
   </div>
-</footer>
+</section>
+
+<!-- ══ 質問の仕方 2/3 ══ -->
+<section id="howto-2" class="howto-section">
+  <div class="w">
+    <div class="howto-left fade">
+      <p class="howto-label">How to ask — 2 / 3</p>
+      <p class="howto-title">できること・<br>できないこと</p>
+      <p class="howto-desc">調べ方のご案内や適切な窓口へのご紹介はできます。<br>ただし、すべての問題を解決できる場ではありません。</p>
+    </div>
+    <div class="cando-grid fade">
+      <div class="cando-card ok">
+        <div class="cando-badge ok">
+          <div class="cando-badge-icon ok">✓</div>
+          できること
+        </div>
+        <ul class="cando-list">
+          <li>調べ方・探し方の案内</li>
+          <li>適切な窓口のご紹介</li>
+          <li>一緒に整理・考える</li>
+          <li>学習の相談全般</li>
+        </ul>
+      </div>
+      <div class="cando-card ng">
+        <div class="cando-badge ng">
+          <div class="cando-badge-icon ng">✕</div>
+          できないこと
+        </div>
+        <ul class="cando-list">
+          <li>すべての問題を解決する保証</li>
+          <li>即答・確実な回答の保証</li>
+          <li>個人的なサポートの代行</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 質問の仕方 3/3 ══ -->
+<section id="howto-3" class="howto-section">
+  <div class="w">
+    <div class="howto-left fade">
+      <p class="howto-label">How to ask — 3 / 3</p>
+      <p class="howto-title">具体的に<br>伝えてください</p>
+      <p class="howto-desc">ウェビナー名・日程など情報が具体的なほど、<br>スムーズにお答えできます。</p>
+    </div>
+    <div class="example-visual fade">
+      <div class="example-card bad">
+        <span class="example-tag">✕ &nbsp;NG — 情報が少ない</span>
+        <p class="example-text">「ウェビナーアーカイブが見つかりません」</p>
+      </div>
+      <div class="example-arrow">↓</div>
+      <div class="example-card good">
+        <span class="example-tag">✓ &nbsp;OK — 具体的に伝える</span>
+        <p class="example-text"><em>〇月〇日</em>の「<em>〇〇〇〇〇〇</em>」という名称のウェビナーアーカイブが見つかりません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 質問の仕方 4/4 — クロージング ══ -->
+<section id="howto-4" class="howto-section howto-closing-section">
+  <div class="w">
+    <div class="fade">
+      <p class="step-section-heading" style="text-align:center;">なんでも相談室</p>
+      <p class="closing-msg">お気軽にご相談ください</p>
+    </div>
+  </div>
+</section>
 
 <script>
   const io = new IntersectionObserver((entries) => {
@@ -767,7 +1249,23 @@
   document.querySelectorAll('.fade').forEach(el => io.observe(el));
 
   /* ── Auto-play ── */
-  const SECTIONS = ['#hero','#steps','#guide','#bgm','#footer'];
+  const SECTIONS = [
+    '#hero',
+    '#screen-guide',
+    '#screen-guide-sp',
+    '#steps',
+    '#step-2',
+    '#step-3',
+    '#guide',
+    '#guide-2',
+    '#guide-3',
+    '#guide-4',
+    '#bgm',
+    '#footer',
+    '#howto-2',
+    '#howto-3',
+    '#howto-4'
+  ];
   const DURATION = 10000;
   let currentIndex = 0;
   let timer = null;
@@ -820,12 +1318,24 @@
     }
   }
 
+  function detectCurrentIndex() {
+    let closest = 0;
+    let minDist = Infinity;
+    SECTIONS.forEach((sel, i) => {
+      const el = document.querySelector(sel);
+      if (!el) return;
+      const dist = Math.abs(el.getBoundingClientRect().top);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    return closest;
+  }
+
   function startAutoplay() {
     isPlaying = true;
+    currentIndex = detectCurrentIndex();
     btn.classList.add('playing');
     icon.innerHTML = stopIcon;
     label.textContent = '停止';
-    scrollToSection(currentIndex);
     startProgress();
     timer = setTimeout(next, DURATION);
   }
