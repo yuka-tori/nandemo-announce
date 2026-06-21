@@ -403,12 +403,24 @@
     }
     .guide-section-right {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
       justify-content: center;
       height: 100%;
+      gap: 12px;
+    }
+    .guide-section-access {
+      font-size: 13px;
+      color: var(--sub);
+      line-height: 1.6;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      width: 100%;
     }
     .guide-section-right img {
-      max-height: calc(100vh - 140px);
+      max-height: calc(100vh - 200px);
       width: 100%;
       object-fit: contain;
       object-position: top;
@@ -532,6 +544,10 @@
     /* ══════════════════════════════
        BGM
     ══════════════════════════════ */
+    #bgm {
+      align-items: flex-start;
+      padding-top: 80px;
+    }
     #bgm h2 {
       font-size: 36px;
       font-weight: 900;
@@ -546,15 +562,17 @@
       grid-template-columns: 1fr 1fr;
       grid-template-rows: auto auto;
       gap: 12px 24px;
+      align-items: start;
     }
     .bgm-layout .bgm-img {
       grid-column: 2;
       grid-row: 1 / 3;
-      align-self: stretch;
+      align-self: start;
     }
     .bgm-layout .bgm-img img {
       width: 100%;
-      height: 100%;
+      height: auto;
+      max-height: 320px;
       object-fit: cover;
     }
     .bgm-desc { font-size: 18px; color: var(--sub); line-height: 1.8; }
@@ -671,7 +689,11 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      width: 380px;
+      width: 440px;
+    }
+    .howto-closing-section {
+      align-items: flex-start;
+      padding-top: 180px;
     }
     .howto-closing-section .w {
       display: block;
@@ -689,10 +711,11 @@
     }
     .open-row {
       border-radius: 14px;
-      padding: 22px 28px;
+      padding: 0 28px;
+      height: 110px;
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 0;
     }
     .open-row.chat-row { background: #F6E9F0; border: 1.5px solid #DBA5C5; }
     .open-row.voice-row { background: #E6F4F2; border: 1.5px solid #9AD5C9; }
@@ -700,45 +723,53 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      gap: 8px;
       flex-shrink: 0;
+      width: 90px;
+      text-align: center;
     }
     .open-sender-svg {
-      width: 30px; height: 30px;
+      width: 32px; height: 32px;
     }
     .chat-row .open-sender-svg { color: #A51E6D; }
     .voice-row .open-sender-svg { color: #039578; }
     .open-sender-label {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       white-space: nowrap;
       line-height: 1;
+      text-align: center;
     }
     .chat-row .open-sender-label { color: #A51E6D; }
     .voice-row .open-sender-label { color: #039578; }
     .open-flow-arrow {
       flex-shrink: 0;
-      width: 44px;
+      width: 48px;
       display: flex;
       align-items: center;
+      justify-content: center;
     }
-    .open-flow-arrow svg { width: 44px; height: 16px; }
+    .open-flow-arrow svg { width: 48px; height: 16px; }
     .open-receivers {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 10px;
     }
     .open-receiver-icons {
       display: flex;
-      gap: 8px;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
     }
     .open-receiver-svg {
       width: 28px; height: 28px;
     }
     .chat-row .open-receiver-svg { color: #C07099; }
-    .voice-row .open-receiver-svg { color: #3D9E89; }
+    .voice-row .open-receiver-svg { color: #039578; }
     .open-receiver-label {
       font-size: 14px;
       font-weight: 700;
@@ -774,12 +805,12 @@
       gap: 16px;
     }
     .cando-card.ok {
-      background: #f0faf5;
-      border: 2px solid #68BFAE;
+      background: #E6F4F2;
+      border: 1.5px solid #9AD5C9;
     }
     .cando-card.ng {
       background: #fff5f5;
-      border: 2px solid #ffaaaa;
+      border: 1.5px solid #ffaaaa;
     }
     .cando-badge {
       display: inline-flex;
@@ -848,24 +879,24 @@
       border: 1.5px solid #68BFAE;
     }
     .example-tag {
-      font-size: 12px;
+      font-size: 15px;
       font-weight: 800;
       letter-spacing: 0.1em;
     }
     .example-card.bad .example-tag { color: #e6033d; }
     .example-card.good .example-tag { color: #039578; }
     .example-text {
-      font-size: 17px;
+      font-size: 21px;
       color: var(--ink);
       line-height: 1.6;
     }
     .example-text em {
-      background: linear-gradient(90deg,#ff4b6e22,#8b2cff22);
+      background: #d4f0ea;
       border-radius: 4px;
-      padding: 1px 4px;
+      padding: 2px 6px;
       font-style: normal;
       font-weight: 700;
-      color: #A51E6D;
+      color: #039578;
     }
     .example-arrow {
       text-align: center;
@@ -874,13 +905,131 @@
       line-height: 1;
     }
 
+    /* ── Page Numbers ── */
+    section, footer { position: relative; }
+    .page-num {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-weight: 500;
+      color: #CCCCCC;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
     /* ══════════════════════════════
-       RESPONSIVE
+       RESPONSIVE — tablet (≤900px)
     ══════════════════════════════ */
-    @media (max-width: 680px) {
-      .guide-grid { grid-template-columns: 1fr; }
-      #bgm .inner { grid-template-columns: 1fr; gap: 20px; }
+    @media (max-width: 900px) {
+      :root { --w: min(900px, 100% - 32px); }
+
+      /* Nav */
+      .site-nav { gap: 4px; padding: 10px 12px; flex-wrap: wrap; }
+      .site-nav a { font-size: 13px; padding: 5px 12px; }
+
+      /* Step sections */
+      .step-section .w { gap: 36px; }
+      .step-num { font-size: 44px; }
+      .step-title { font-size: 28px; }
+      .step-note { font-size: 16px; }
+
+      /* Screen section */
+      .screen-section .w { gap: 28px; }
+
+      /* Guide sections */
+      .guide-section .w { gap: 36px; }
+      .guide-section-dest { font-size: 28px; }
+      .guide-section-examples li { font-size: 16px; }
+
+      /* BGM */
+      .bgm-layout { gap: 10px 16px; }
+
+      /* Howto */
+      .howto-section .w { gap: 36px; }
+      .howto-title { font-size: 28px; }
+      .open-diagram { width: 360px; }
+
+      /* Cando */
+      .cando-list li { font-size: 15px; }
+
+      /* Closing */
+      .closing-msg { font-size: 36px; }
+    }
+
+    /* ══════════════════════════════
+       RESPONSIVE — mobile (≤640px)
+    ══════════════════════════════ */
+    @media (max-width: 640px) {
+      :root { --w: min(640px, 100% - 24px); }
+
+      /* Nav */
+      .site-nav { gap: 3px; padding: 8px 10px; }
+      .site-nav a { font-size: 11px; padding: 4px 8px; }
+      .autoplay-btn { font-size: 10px; padding: 3px 8px 3px 6px; }
+
+      /* Sections: 1列に切り替え */
+      section, footer { height: auto; min-height: 100vh; padding: 80px 0 40px; scroll-snap-align: start; }
+
+      /* Step section */
+      .step-section .w,
+      .step-section.no-img .w {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 24px;
+      }
+      .step-right { height: auto; }
+      .step-right img { max-height: 50vw; }
+
+      /* Screen section */
+      .screen-section .w { grid-template-columns: 1fr !important; gap: 20px; }
+      .screen-pc-img { padding: 0; height: auto; }
+      .screen-pc-img img { max-height: 55vw; }
+      .screen-sp-imgs { height: auto; }
+      .screen-sp-imgs img { max-height: 80vw; }
+
+      /* Guide section */
+      .guide-section .w,
+      .guide-section.no-img .w {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 20px;
+      }
+      .guide-section-right { height: auto; }
+      .guide-section-right img { max-height: 55vw; }
+      .guide-section-dest { font-size: 24px; }
+
+      /* Howto section */
+      .howto-section .w { grid-template-columns: 1fr; gap: 24px; }
+      .howto-title { font-size: 26px; }
+      .howto-desc { font-size: 16px; }
+      .open-diagram { width: 100%; }
+      .open-row { height: auto; min-height: 90px; padding: 16px 16px; }
+      .open-sender { width: 70px; }
+      .open-flow-arrow { width: 36px; }
+      .open-flow-arrow svg { width: 36px; }
+      .cando-grid { grid-template-columns: 1fr; gap: 12px; }
+      .cando-list li { font-size: 15px; }
+      .example-text { font-size: 17px; }
+
+      /* BGM */
+      #bgm { padding-top: 80px; }
+      .bgm-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+      }
+      .bgm-layout .bgm-img {
+        grid-column: 1;
+        grid-row: 3;
+      }
+      .bgm-layout .bgm-img img { max-height: 200px; }
       #bgm h2 { font-size: 24px; }
+
+      /* Closing */
+      .closing-msg { font-size: 28px; }
     }
   </style>
 </head>
@@ -902,6 +1051,7 @@
 
 <!-- ══ HERO ══ -->
 <section id="hero">
+  <span class="page-num">1 / 15</span>
   <div class="w">
     <p class="eyebrow fade">SHIFT AI Community</p>
     <h1 class="fade"><span class="sub-line">ようこそ！ここは、</span><span class="brand grad-text">なんでも相談室</span><span class="sub-line">です</span></h1>
@@ -917,27 +1067,27 @@
 <!-- ══ STEPS ══ -->
 <!-- ── 画面の見方：PC ── -->
 <section id="screen-guide" class="step-section screen-section">
+  <span class="page-num">2 / 15</span>
   <div class="w">
     <div class="step-left fade">
       <p class="step-section-heading">Screen Guide</p>
       <p class="step-section-title">画面の見方</p>
-      <p class="step-counter">PC</p>
       <p class="step-title">PCでの<br>画面レイアウト</p>
       <p class="step-note">左側にチャット欄、右側に音声チャンネルが表示されます。</p>
     </div>
     <div class="screen-pc-img fade">
-      <img src="images/screen_guide_pc.png" alt="PCでの画面の見方">
+      <img src="images/screen_guide_pc.png?v=20260621" alt="PCでの画面の見方">
     </div>
   </div>
 </section>
 
 <!-- ── 画面の見方：スマホ ── -->
 <section id="screen-guide-sp" class="step-section screen-section">
+  <span class="page-num">3 / 15</span>
   <div class="w">
     <div class="step-left fade">
       <p class="step-section-heading">Screen Guide</p>
       <p class="step-section-title">画面の見方</p>
-      <p class="step-counter">スマホ</p>
       <p class="step-title">スマホでの<br>画面レイアウト</p>
       <p class="step-note">左右にスワイプするとチャンネルを切り替えられます。</p>
     </div>
@@ -950,11 +1100,11 @@
 
 <!-- ── STEP 1 ── -->
 <section id="steps" class="step-section">
+  <span class="page-num">4 / 15</span>
   <div class="w">
     <div class="step-left fade">
       <p class="step-section-heading">How it works</p>
       <p class="step-section-title">ご利用の流れ</p>
-      <p class="step-counter">STEP 1 / 3</p>
       <p class="step-num">1</p>
       <p class="step-title">事前アンケートに<br>回答する</p>
       <p class="step-note">あなたのDiscordネームでメンションしたアンケートをチャット欄に送っています。</p>
@@ -968,9 +1118,9 @@
 
 <!-- ── STEP 2 ── -->
 <section id="step-2" class="step-section">
+  <span class="page-num">5 / 15</span>
   <div class="w">
     <div class="step-left fade">
-      <p class="step-counter">STEP 2 / 3</p>
       <p class="step-num">2</p>
       <p class="step-title">チャットまたは音声で<br>相談する</p>
       <p class="step-note alert">音声会話を希望の場合は、その旨をチャット欄にコメントください</p>
@@ -984,9 +1134,9 @@
 
 <!-- ── STEP 3 ── -->
 <section id="step-3" class="step-section">
+  <span class="page-num">6 / 15</span>
   <div class="w">
     <div class="step-left fade">
-      <p class="step-counter">STEP 3 / 3</p>
       <p class="step-num">3</p>
       <p class="step-title">スタッフが順番に<br>音声で回答します</p>
       <p class="step-note">いただいた質問から順番に音声でお答えします。</p>
@@ -999,11 +1149,11 @@
 
 <!-- ══ GUIDE 1 ══ -->
 <section id="guide" class="guide-section">
+  <span class="page-num">7 / 15</span>
   <div class="w">
     <div class="guide-section-left fade">
       <p class="step-section-heading">Inquiry Guide</p>
       <p class="step-section-title">相談窓口ガイド</p>
-      <p class="guide-section-label">Inquiry Guide — 1 / 4</p>
       <p class="guide-section-cat">学習に関するご相談</p>
       <p class="guide-section-dest grad-text">なんでも相談室</p>
       <ul class="guide-section-examples">
@@ -1013,16 +1163,16 @@
       </ul>
     </div>
     <div class="guide-section-right fade">
-      <img src="images/nandemosoudanshitsu_image.png" alt="なんでも相談室">
+      <img src="images/nandemosoudanshitsu_image.png?v=20260621" alt="なんでも相談室">
     </div>
   </div>
 </section>
 
 <!-- ══ GUIDE 2 ══ -->
 <section id="guide-2" class="guide-section">
+  <span class="page-num">8 / 15</span>
   <div class="w">
     <div class="guide-section-left fade">
-      <p class="guide-section-label">Inquiry Guide — 2 / 4</p>
       <p class="guide-section-cat">契約・プラン・事務手続き</p>
       <p class="guide-section-dest grad-text">AIメンター<br>（相談・サポート）</p>
       <ul class="guide-section-examples">
@@ -1032,6 +1182,7 @@
       </ul>
     </div>
     <div class="guide-section-right fade">
+      <p class="guide-section-access">会員サイト ＞ 左側のメニューより「AIメンター（相談・サポート）」を選択</p>
       <img src="images/AImentor.png" alt="AIメンターBot">
     </div>
   </div>
@@ -1039,9 +1190,9 @@
 
 <!-- ══ GUIDE 3 ══ -->
 <section id="guide-3" class="guide-section">
+  <span class="page-num">9 / 15</span>
   <div class="w">
     <div class="guide-section-left fade">
-      <p class="guide-section-label">Inquiry Guide — 3 / 4</p>
       <p class="guide-section-cat">サイト不具合・ご要望</p>
       <p class="guide-section-dest grad-text">ご意見箱</p>
       <ul class="guide-section-examples">
@@ -1050,6 +1201,7 @@
       </ul>
     </div>
     <div class="guide-section-right fade">
+      <p class="guide-section-access">会員サイト ＞ 左側のメニューより「ご意見箱」を選択</p>
       <img src="images/goikenbako.png" alt="ご意見箱">
     </div>
   </div>
@@ -1057,9 +1209,9 @@
 
 <!-- ══ GUIDE 4 ══ -->
 <section id="guide-4" class="guide-section">
+  <span class="page-num">10 / 15</span>
   <div class="w">
     <div class="guide-section-left fade">
-      <p class="guide-section-label">Inquiry Guide — 4 / 4</p>
       <p class="guide-section-cat">Discordの使い方</p>
       <p class="guide-section-dest grad-text">Discord質問窓口</p>
       <ul class="guide-section-examples">
@@ -1068,6 +1220,7 @@
       </ul>
     </div>
     <div class="guide-section-right fade">
+      <p class="guide-section-access">Discord ＞ 左側のチャンネル一覧より「❓Discordの質問はこちら」を選択</p>
       <img src="images/Dscord_Q.png" alt="Discord質問窓口">
     </div>
   </div>
@@ -1075,6 +1228,7 @@
 
 <!-- ══ BGM ══ -->
 <section id="bgm">
+  <span class="page-num">11 / 15</span>
   <div class="w">
     <div class="fade">
       <p class="label">Volume</p>
@@ -1100,11 +1254,11 @@
 <!-- ══ FOOTER ══ -->
 <!-- ══ 質問の仕方 1/3 ══ -->
 <section id="footer" class="howto-section">
+  <span class="page-num">12 / 15</span>
   <div class="w">
     <div class="howto-left fade">
       <p class="step-section-heading">How to ask</p>
       <p class="step-section-title">質問の仕方</p>
-      <p class="howto-label">How to ask — 1 / 3</p>
       <p class="howto-title">ここはオープンな場です</p>
       <p class="howto-desc">チャット・音声はその場にいる全員に見えます。<br>個人情報の記載はお控えください。</p>
       <div class="ng-pill">✕ &nbsp;氏名・電話番号・メールアドレス など</div>
@@ -1168,9 +1322,9 @@
 
 <!-- ══ 質問の仕方 2/3 ══ -->
 <section id="howto-2" class="howto-section">
+  <span class="page-num">13 / 15</span>
   <div class="w">
     <div class="howto-left fade">
-      <p class="howto-label">How to ask — 2 / 3</p>
       <p class="howto-title">できること・<br>できないこと</p>
       <p class="howto-desc">調べ方のご案内や適切な窓口へのご紹介はできます。<br>ただし、すべての問題を解決できる場ではありません。</p>
     </div>
@@ -1204,9 +1358,9 @@
 
 <!-- ══ 質問の仕方 3/3 ══ -->
 <section id="howto-3" class="howto-section">
+  <span class="page-num">14 / 15</span>
   <div class="w">
     <div class="howto-left fade">
-      <p class="howto-label">How to ask — 3 / 3</p>
       <p class="howto-title">具体的に<br>伝えてください</p>
       <p class="howto-desc">ウェビナー名・日程など情報が具体的なほど、<br>スムーズにお答えできます。</p>
     </div>
@@ -1226,6 +1380,7 @@
 
 <!-- ══ 質問の仕方 4/4 — クロージング ══ -->
 <section id="howto-4" class="howto-section howto-closing-section">
+  <span class="page-num">15 / 15</span>
   <div class="w">
     <div class="fade">
       <p class="step-section-heading" style="text-align:center;">なんでも相談室</p>
